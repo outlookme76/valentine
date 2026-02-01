@@ -1,9 +1,19 @@
-// YES button action
+let musicPlayed = false;
+
+// Play music on first tap
+function playMusic() {
+  if (!musicPlayed) {
+    document.getElementById("bgMusic").play();
+    musicPlayed = true;
+  }
+}
+
+// YES button
 function yesClick() {
   document.querySelector('.reel').innerHTML = `
     <h1>YAYYY 😍❤️</h1>
     <p style="margin-top:20px; font-size:18px;">
-      Best decision ever.
+      RIMJHIM just made me the happiest person alive.
     </p>
     <p style="margin-top:10px;">
       Happy Valentine’s Day 💕
@@ -29,7 +39,5 @@ setInterval(() => {
   heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
   heartsContainer.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }, 400);
