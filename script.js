@@ -48,8 +48,8 @@ setInterval(() => {
     currentIndex = (currentIndex + 1) % photos.length;
     slideImage.src = photos[currentIndex];
     slideImage.style.opacity = 1;
-  }, 500);
-}, 3000);
+  }, 400);
+}, 2000);
 
 /* FLOATING HEARTS */
 const heartsContainer = document.querySelector('.hearts');
@@ -63,3 +63,4 @@ setInterval(() => {
 
   setTimeout(() => heart.remove(), 6000);
 }, 400);
+
