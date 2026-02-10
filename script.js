@@ -18,7 +18,7 @@ const noText = document.getElementById("noText");
 // FORCE clear space between image and caption (visual gap)
 const photoBox = document.querySelector(".photo-box");
 
-photoBox.style.marginBottom = "24px";     // real spacing
+photoBox.style.marginBottom = "60px";     // real spacing
 photoBox.style.paddingBottom = "4px";     // separates shadow
 caption.style.display = "block";
 caption.style.marginTop = "0";
@@ -135,5 +135,6 @@ setInterval(() => {
   hearts.appendChild(h);
   setTimeout(() => h.remove(), 7000);
 }, 400);
+
 
 
