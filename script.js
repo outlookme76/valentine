@@ -1,5 +1,7 @@
+/* ===== ELEMENTS ===== */
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
+
 const card = document.getElementById("card");
 const surprise = document.getElementById("surprise");
 const finalPage = document.getElementById("final");
@@ -10,12 +12,15 @@ const caption = document.getElementById("caption");
 const progress = document.getElementById("progress");
 
 const music = document.getElementById("bgMusic");
-const clickSound = document.getElementById("clickSound");
-
 const retryYes = document.getElementById("retryYes");
 const noText = document.getElementById("noText");
 
-/* SLIDES (7 PHOTOS) */
+/* ===== CAPTION POLISH (spacing + soft look) ===== */
+caption.style.marginTop = "16px";
+caption.style.color = "#444";
+caption.style.fontSize = "15px";
+
+/* ===== SLIDES (7 PHOTOS) ===== */
 const slides = [
   { img: "assets/photo1.jpg", text: "You make everything better ❤️" },
   { img: "assets/photo2.jpg", text: "My favorite smile 😍" },
@@ -28,9 +33,8 @@ const slides = [
 
 let index = 0;
 let interval;
-let cycles = 0;
 
-/* TYPEWRITER */
+/* ===== TYPEWRITER EFFECT ===== */
 function typeText(el, text) {
   el.innerText = "";
   let i = 0;
@@ -41,39 +45,42 @@ function typeText(el, text) {
   }, 40);
 }
 
-/* SHOW SLIDE */
+/* ===== SHOW SLIDE ===== */
 function showSlide(i) {
   slidePhoto.src = slides[i].img;
   typeText(caption, slides[i].text);
-  progress.innerHTML = slides.map((_, idx) => idx <= i ? "❤️" : "🤍").join(" ");
+  progress.innerHTML = slides
+    .map((_, idx) => (idx <= i ? "❤️" : "🤍"))
+    .join(" ");
 }
 
-/* AUTO SLIDESHOW */
+/* ===== SHORT SLIDESHOW ===== */
 function startSlideshow() {
-  showSlide(0);
+  index = 0;
+  showSlide(index);
+
   interval = setInterval(() => {
     index++;
-    if (index >= slides.length) {
-      index = 0;
-      cycles++;
-    }
-    showSlide(index);
 
-    if (cycles === 1 && index === slides.length - 1) {
+    if (index >= slides.length) {
       clearInterval(interval);
       setTimeout(() => {
         surprise.classList.add("hidden");
         finalPage.classList.remove("hidden");
         document.querySelector(".finalText").classList.remove("hidden");
-      }, 2500);
+      }, 800);
+      return;
     }
-  }, 1500);
+
+    showSlide(index);
+  }, 1500); // ⏱️ 1.5 sec per photo
 }
 
-/* MUSIC */
+/* ===== MUSIC ===== */
 function playMusic() {
   music.volume = 0;
   music.play();
+
   let v = 0;
   const fade = setInterval(() => {
     v += 0.05;
@@ -82,7 +89,7 @@ function playMusic() {
   }, 200);
 }
 
-/* YES */
+/* ===== YES BUTTON ===== */
 yesBtn.onclick = () => {
   card.classList.add("hidden");
   surprise.classList.remove("hidden");
@@ -91,7 +98,7 @@ yesBtn.onclick = () => {
   if (navigator.vibrate) navigator.vibrate(20);
 };
 
-/* NO ESCAPE + STORY */
+/* ===== NO BUTTON (ESCAPE + STORY) ===== */
 noBtn.onmouseenter = () => {
   const x = Math.random() * 200 - 100;
   const y = Math.random() * 200 - 100;
@@ -104,7 +111,7 @@ noBtn.onclick = () => {
   typeText(noText, "You really thought NO was an option? 😏");
 };
 
-/* RETRY YES */
+/* ===== RETRY YES ===== */
 retryYes.onclick = () => {
   noPage.classList.add("hidden");
   surprise.classList.remove("hidden");
@@ -112,14 +119,7 @@ retryYes.onclick = () => {
   startSlideshow();
 };
 
-/* SHARE */
-document.getElementById("shareBtn").onclick = () => {
-  navigator.share
-    ? navigator.share({ title: "For You ❤️", url: location.href })
-    : navigator.clipboard.writeText(location.href);
-};
-
-/* HEART PARTICLES */
+/* ===== FLOATING HEARTS ===== */
 const hearts = document.getElementById("hearts");
 setInterval(() => {
   const h = document.createElement("span");
@@ -129,4 +129,3 @@ setInterval(() => {
   hearts.appendChild(h);
   setTimeout(() => h.remove(), 7000);
 }, 400);
-
