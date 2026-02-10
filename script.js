@@ -1,61 +1,83 @@
-const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
 const card = document.getElementById("card");
-const success = document.getElementById("success");
+const surprise = document.getElementById("surprise");
+const music = document.getElementById("bgMusic");
+const slidePhoto = document.getElementById("slidePhoto");
+const caption = document.getElementById("caption");
 
-const noTexts = [
-  "No 😐",
-  "Are you sure?",
-  "Think again 😏",
-  "Please? 🥺",
-  "You can’t 😈"
-];
-
-let noCount = 0;
-
-// NO button escape
+/* NO button escape */
 noBtn.addEventListener("mouseenter", () => {
   const x = Math.random() * 200 - 100;
   const y = Math.random() * 200 - 100;
-
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-  noBtn.innerText = noTexts[noCount % noTexts.length];
-  noCount++;
 });
 
-// YES button
+/* Photos + captions */
+const slides = [
+  {
+    img: "assets/photo1.jpg",
+    text: "You make everything better ❤️"
+  },
+  {
+    img: "assets/photo2.jpg",
+    text: "My favorite smile 😍"
+  },
+  {
+    img: "assets/photo3.jpg",
+    text: "Forever looks good with you 💖"
+  }
+];
+
+let index = 0;
+let interval;
+
+/* YES button */
 yesBtn.addEventListener("click", () => {
   card.classList.add("hidden");
-  success.classList.remove("hidden");
-  startConfetti();
+  surprise.classList.remove("hidden");
+  playMusic();
+  startAutoSlide();
 });
 
-// Hearts generator
-const heartsContainer = document.querySelector(".hearts");
+/* Auto slideshow */
+function showSlide(i) {
+  slidePhoto.src = slides[i].img;
+  caption.innerText = slides[i].text;
+}
 
-setInterval(() => {
-  const heart = document.createElement("span");
-  heart.innerText = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 20 + 10 + "px";
-  heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+function startAutoSlide() {
+  interval = setInterval(() => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }, 3000);
+}
 
-  heartsContainer.appendChild(heart);
+/* Swipe support (mobile) */
+let startX = 0;
 
-  setTimeout(() => heart.remove(), 6000);
-}, 300);
+slidePhoto.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
 
-// Simple confetti
-function startConfetti() {
-  for (let i = 0; i < 30; i++) {
-    const c = document.createElement("span");
-    c.innerText = "🎉";
-    c.style.position = "absolute";
-    c.style.left = Math.random() * 100 + "vw";
-    c.style.top = Math.random() * 100 + "vh";
-    c.style.fontSize = "20px";
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 2000);
+slidePhoto.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  if (endX < startX - 50) {
+    index = (index + 1) % slides.length;
+  } else if (endX > startX + 50) {
+    index = (index - 1 + slides.length) % slides.length;
   }
+  showSlide(index);
+});
+
+/* Music fade-in */
+function playMusic() {
+  music.volume = 0;
+  music.play();
+  let v = 0;
+  const fade = setInterval(() => {
+    v += 0.05;
+    music.volume = v;
+    if (v >= 0.7) clearInterval(fade);
+  }, 200);
 }
