@@ -15,15 +15,14 @@ const music = document.getElementById("bgMusic");
 const retryYes = document.getElementById("retryYes");
 const noText = document.getElementById("noText");
 
-// Force spacing between photo and caption
+// FORCE clear space between image and caption (visual gap)
 const photoBox = document.querySelector(".photo-box");
 
-photoBox.style.marginBottom = "18px"; // SPACE FIX
-caption.style.color = "#444";
-caption.style.fontSize = "15px";
-
-/* ===== CAPTION POLISH (spacing + soft look) ===== */
-caption.style.marginTop = "16px";
+photoBox.style.marginBottom = "24px";     // real spacing
+photoBox.style.paddingBottom = "4px";     // separates shadow
+caption.style.display = "block";
+caption.style.marginTop = "0";
+caption.style.lineHeight = "1.4";
 caption.style.color = "#444";
 caption.style.fontSize = "15px";
 
@@ -136,4 +135,5 @@ setInterval(() => {
   hearts.appendChild(h);
   setTimeout(() => h.remove(), 7000);
 }, 400);
+
 
