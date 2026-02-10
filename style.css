@@ -59,6 +59,10 @@ body {
   justify-content: space-around;
 }
 
+.caption-space {
+  height: 20px;
+}
+
 button {
   padding: 10px 22px;
   border-radius: 30px;
@@ -150,4 +154,5 @@ button {
     opacity: 0;
   }
 }
+
 
