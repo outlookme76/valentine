@@ -21,7 +21,7 @@ const slides = [
   { img: "assets/photo3.jpg", text: "This moment means everything 💖" },
   { img: "assets/photo4.jpg", text: "I feel safe with you 🤍" },
   { img: "assets/photo5.jpg", text: "You're my happy place 🌸" },
-  { img: "assets/photo6.jpg", text: "Forever feels right 💫" },
+  { img: "assets/photo6.jpg", text: "THIS IS A TEST WITH BIG SPACES RIGHT HERE 💫" },
   { img: "assets/photo7.jpg", text: "Always you. Always us ❤️" }
 ];
 
@@ -116,4 +116,5 @@ setInterval(() => {
   hearts.appendChild(h);
   setTimeout(() => h.remove(), 7000);
 }, 400);
+
 
