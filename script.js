@@ -29,12 +29,16 @@ let index = 0;
 
 /* Typewriter */
 function typeText(el, text) {
-  el.innerText = "";
+  el.textContent = "";
   let i = 0;
+
   const t = setInterval(() => {
-    el.innerText += text[i];
+    el.textContent += text.charAt(i);
     i++;
-    if (i === text.length) clearInterval(t);
+
+    if (i >= text.length) {
+      clearInterval(t);
+    }
   }, 40);
 }
 
@@ -116,5 +120,6 @@ setInterval(() => {
   hearts.appendChild(h);
   setTimeout(() => h.remove(), 7000);
 }, 400);
+
 
 
